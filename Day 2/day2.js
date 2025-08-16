@@ -50,9 +50,9 @@ let cartB = ["Laptop", "Camera"];
 // Create 'hasTechDeal' that is TRUE if EITHER cart contains "Laptop" OR "Camera".
 // Use includes or indexOf (no loops).
 let hasTechDeal =
-	!(cartA.includes(cartB[0]) && cartA.includes(cartB[1])) &&
-	cartB.includes(cartB[0]) &&
-	cartB.includes(cartB[1]);
+	cartA.includes(cartB[0]) || cartA.includes(cartB[1])
+	&&
+	cartB.includes(cartB[0]) || cartB.includes(cartB[1]);
 
 console.log("hasTechDeal =", hasTechDeal); // true
 
@@ -130,7 +130,7 @@ let settings;
 //? if i don't write {} it will overwrite the defaults (Parent)
 //* {} Create A new Object than change in parent object
 
-settings = Object.assign({},defaults, overrides);
+settings = Object.assign({}, defaults, overrides);
 
 console.log("settings =", settings);
 console.log("defaults still =", defaults);
@@ -183,13 +183,13 @@ let winner;
 winner = []; // it should turn to array or get error from .push()
 
 if (numbers[0] >= numbers[1] && numbers[0] >= numbers[2]) {
-    winner.push(names[0]);
+	winner.push(names[0]);
 }
 if (numbers[1] >= numbers[0] && numbers[1] >= numbers[2]) {
-    winner.push(names[1]);
+	winner.push(names[1]);
 }
 if (numbers[2] >= numbers[0] && numbers[2] >= numbers[1]) {
-    winner.push(names[2]);
+	winner.push(names[2]);
 }
 console.log("names  =", names);
 console.log("numbers=", numbers);
@@ -211,15 +211,16 @@ let price;
 
 if (customer.age < 6) {
 	price = 0;
-} else if ( customer.age <= 18 || customer.isStudent === true) { // i can write customer.isStudent because it's always true
+} else if (customer.age <= 18 || customer.isStudent === true) {
+	// i can write customer.isStudent because it's always true
 	price = 8;
-}else if (customer.age >= 65) {
+} else if (customer.age >= 65) {
 	price = 6;
-}else {
+} else {
 	price = 12;
 }
 if (customer.hasCoupon) {
-	price-=2; // OR price = price -2 
+	price -= 2; // OR price = price -2
 }
 
 console.log("price =", price);
@@ -249,7 +250,7 @@ console.log(displayName);
 
 // Create 'hasProgram' that is TRUE if the (trimmed, lowercased) string contains "program".
 let hasProgram;
-hasProgram =rawName.trim().toLowerCase().includes("program") // true
+hasProgram = rawName.trim().toLowerCase().includes("program"); // true
 /* Note
 trim, lowercase don't overwrite on parent variable
 */
