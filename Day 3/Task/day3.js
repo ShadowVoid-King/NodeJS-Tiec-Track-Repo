@@ -217,9 +217,10 @@ function normalizeNames(names) {
 //   - label(): returns (this.brand || "Generic") + " " + this.name
 // Return an array of product instances. Use a loop (no map).
 // ------------------------------------------------------------
+// ~ Note
+// buildProductCatalog will use main of productProto for create properties and save temp data ( he use anoym function as value)
 /* 
-buildProductCatalog will use main of productProto for create properties and save temp data ( he use anoym function as value)
-
+loop will be 3 time 
 */
 
 const productProto = {
@@ -235,7 +236,24 @@ function buildProductCatalog(rawItems) {
 	// TODO
 	// Hint: for each item, create obj = Object.create(productProto);
 	// copy properties (name/brand/stock) into it; push into result.
-	return []; // replace
+	let result = [];
+
+	for (let i = 0; i < rawItems.length; i++) {
+
+		let obj = Object.create(productProto);
+
+		obj.name = rawItems[i].name;  // mouse
+		obj.brand = rawItems[i].brand; // logi
+		obj.stock = rawItems[i].stock; // 10
+
+		result.push(obj);
+
+		// if (obj.isAvailable()) { // here will back to productProto > true
+		// 	result.push(obj); // error when you reach 0 result it will skip and make error
+		// }
+		
+	}
+	return result; // replace
 }
 
 // ------------------------------------------------------------
@@ -374,15 +392,12 @@ console.log(
 	catalog.map((p) => ({ label: p.label(), available: p.isAvailable() }))
 );
 
-// THERE IS NO FUNCTION
-// console.log("\n--- Task 10 ---");
-// console.log(scoresReport({ Alice: 17, Bob: 22, Carol: 22, Dan: 9 }));
 
-console.log("\n--- Task 11 ---");
+console.log("\n--- Task 10 ---");
 console.log(sumUntilLimit([5, 7, 4], 12)); // 12
 console.log(sumUntilLimit([6, 6, 6], 10)); // 6
 
-console.log("\n--- Task 12 ---");
+console.log("\n--- Task 11 ---");
 console.log(
 	safeLogin(
 		{ email: "a@b.com", password: "He11oWorld" },
@@ -390,6 +405,11 @@ console.log(
 	)
 ); // true or false depending on rules
 
+// THERE IS NO FUNCTION
+// I Reorder Tasks because task 12 is not exists
+
+// console.log("\n--- Task 12 ---");
+// console.log(scoresReport({ Alice: 17, Bob: 22, Carol: 22, Dan: 9 }));
 // ============================================================
 // End — Have fun!
 // ============================================================
