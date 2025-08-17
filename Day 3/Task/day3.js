@@ -240,17 +240,17 @@ function buildProductCatalog(rawItems) {
 
 	for (let i = 0; i < rawItems.length; i++) {
 
-		let obj = Object.create(productProto);
+		let obj = Object.create(productProto, {
+			name: { value: rawItems[i].name },
+			brand: { value: rawItems[i].brand },
+			stock: { value: rawItems[i].stock },
+		});
 
-		obj.name = rawItems[i].name;  // mouse
-		obj.brand = rawItems[i].brand; // logi
-		obj.stock = rawItems[i].stock; // 10
+		// obj.name = rawItems[i].name;  // mouse
+		// obj.brand = rawItems[i].brand; // logi
+		// obj.stock = rawItems[i].stock; // 10
 
 		result.push(obj);
-
-		// if (obj.isAvailable()) { // here will back to productProto > true
-		// 	result.push(obj); // error when you reach 0 result it will skip and make error
-		// }
 		
 	}
 	return result; // replace
