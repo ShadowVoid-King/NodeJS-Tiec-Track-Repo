@@ -217,7 +217,7 @@ function normalizeNames(names) {
 //   - label(): returns (this.brand || "Generic") + " " + this.name
 // Return an array of product instances. Use a loop (no map).
 // ------------------------------------------------------------
-// ~ Note
+// ~ Note for me
 // buildProductCatalog will use main of productProto for create properties and save temp data ( he use anoym function as value)
 /* 
 loop will be 3 time 
