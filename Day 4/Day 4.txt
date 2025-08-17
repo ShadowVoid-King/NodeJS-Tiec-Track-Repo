@@ -1,0 +1,34 @@
+**** Git Commands
+
+git init  \\ create github
+
+git add . \\ add current file
+
+git commit -am  "Message" \\ Write A Describe Message
+
+/ * when create repo with github choose http request ( NOT SSH )
+copy whole commands and set in terminal VSCode
+connect with github account
+*/
+
+git remote set-url (REPO URL)
+
+git branch -M main
+
+git push -u origin main   \\ first time when you try upload repo  
+
+git push \\ when you already had upload repo to github
+
+
+
+**** CMD & PowerShell Commands 
+
+cd C:\Users \\ [cd] use to open folder
+
+echo "Message" >> file.txt  ( Create file and write on it, >> mean append text not overwrite it )
+
+cd ..\        ( go to back )
+
+dir \\ show right path
+
+mkdir \\ create folder

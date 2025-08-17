@@ -49,10 +49,18 @@ let cartB = ["Laptop", "Camera"];
 
 // Create 'hasTechDeal' that is TRUE if EITHER cart contains "Laptop" OR "Camera".
 // Use includes or indexOf (no loops).
-let hasTechDeal =
-	cartA.includes(cartB[0]) || cartA.includes(cartB[1])
-	&&
-	cartB.includes(cartB[0]) || cartB.includes(cartB[1]);
+
+// Another Way
+// let hasTechDeal =
+// 	cartA.includes(cartB[0]) || cartA.includes(cartB[1])
+// 	&&
+// 	cartB.includes(cartB[0]) || cartB.includes(cartB[1]);
+
+let hasTechDeal = cartA.includes(cartB[0]) || cartA.includes(cartB[1])
+
+console.log("hasTechDeal =", hasTechDeal); // true
+
+hasTechDeal = cartB.includes(cartB[0]) || cartB.includes(cartB[1]);
 
 console.log("hasTechDeal =", hasTechDeal); // true
 
@@ -136,7 +144,7 @@ console.log("settings =", settings);
 console.log("defaults still =", defaults);
 
 // ------------------------------
-//! Task 6 — Prototypes with Object.create (no functions needed)
+//// Task 6 — Prototypes with Object.create (no functions needed)
 // ------------------------------
 console.log("\\nTask 6 — Object.create basics");
 let vehicleBase = {
@@ -182,15 +190,26 @@ if (names.includes("Bob")) {
 let winner;
 winner = []; // it should turn to array or get error from .push()
 
-if (numbers[0] >= numbers[1] && numbers[0] >= numbers[2]) {
-	winner.push(names[0]);
+// if (numbers[0] >= numbers[1] && numbers[0] >= numbers[2]) {
+// 	winner.push(names[0]);
+// }
+// if (numbers[1] >= numbers[0] && numbers[1] >= numbers[2]) {
+// 	winner.push(names[1]);
+// }
+// if (numbers[2] >= numbers[0] && numbers[2] >= numbers[1]) {
+// 	winner.push(names[2]);
+// }
+if (numbers[0] > numbers[1] && numbers[0] > numbers[2]) {
+    winner = names[0]; // Alice
+} else if (numbers[1] > numbers[0] && numbers[1] > numbers[2]) {
+    winner = names[1]; // Bob
+} else if (numbers[2] > numbers[0] && numbers[2] > numbers[1]) {
+    winner = names[2]; // Carol 
+} else {
+    // If no one has a highest score, it must be a tie.
+    winner = "TIE";
 }
-if (numbers[1] >= numbers[0] && numbers[1] >= numbers[2]) {
-	winner.push(names[1]);
-}
-if (numbers[2] >= numbers[0] && numbers[2] >= numbers[1]) {
-	winner.push(names[2]);
-}
+
 console.log("names  =", names);
 console.log("numbers=", numbers);
 console.log("hasBob =", hasBob);
@@ -240,16 +259,17 @@ let displayName;
 displayName = rawName.trim();
 displayName = displayName.toLowerCase().split(" "); // trun to array
 let word_P = displayName[0][0].toUpperCase(); // P
-let word_J = displayName[1][0].toUpperCase(); // J
+// let word_J = displayName[1][0].toUpperCase(); // J
 
 displayName[0] = word_P + displayName[0].slice(1); // Preprogramming
-displayName[1] = word_J + displayName[1].slice(1); // Javascript
+// displayName[1] = word_J + displayName[1].slice(1); // Javascript
 displayName = displayName.join(" "); // turn to string
 
-console.log(displayName);
+console.log(displayName); // Preprogramming javascript
 
 // Create 'hasProgram' that is TRUE if the (trimmed, lowercased) string contains "program".
 let hasProgram;
+
 hasProgram = rawName.trim().toLowerCase().includes("program"); // true
 /* Note
 trim, lowercase don't overwrite on parent variable
