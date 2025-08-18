@@ -33,16 +33,27 @@ function inputQuestion() {
 	rl.question(
 		"Write Your Calculations: ",
 		(calulations) => {
-			// it will back as string
+			// calulations > it will back as string
+			//* Breaker
+			let Breaker = ["continue", "cut", "break", "-1", "done", "no"];
+			if (Breaker.includes(calulations.toLowerCase())) {
+				// in case if i write Upper Case
+                rl.close();
+                return; // it will stop whole function ( exit || no infinite loop )
+			}
+
 			// search by match or search /[+\-*/]/
 			// /[+\-*/]/ use \ to escape - so script will not think + to - it will make error
-			// indexOf NOT WORK WITH REGEX
-
+			//* indexOf NOT WORK WITH REGEX
 			let opera = calulations[calulations.search(/[+\-*/]/)];
 			let nums = calulations.trim().split(opera); // split nums [2,3]
 
 			// let opera = calulations[calulations.trim().search(/[+,\-,*,/]/)]; // search by indexof or search [+,-,*,/]
-
+			//* if wrong operation
+			if (opera == "-1") {
+				// idk if back string or number , if fail
+				console.log("There Is No Operation");
+			}
 			if (opera == "+") {
 				console.log(add(Number(nums[0]), Number(nums[1])));
 			} else if (opera == "-") {
@@ -52,11 +63,7 @@ function inputQuestion() {
 			} else if (opera == "/") {
 				console.log(divide(Number(nums[0]), Number(nums[1])));
 			}
-
-			let Breaker = ["continue", "break", -1, "-1"];
-			if (Breaker.includes(calulations)) {
-				rl.close();
-			}
+			inputQuestion(); // DOES WORK ???
 		} // close call back function
 	); // close question
 } // close function
