@@ -41,7 +41,6 @@ function inputQuestion() {
                 rl.close();
                 return; // it will stop whole function ( exit || no infinite loop )
             }
-
             // search by match or search /[+\-*/]/
             // /[+\-*/]/ use \ to escape - so script will not think + to - it will make error
             //* indexOf NOT WORK WITH REGEX
@@ -58,32 +57,20 @@ function inputQuestion() {
             }
             // 2 + 2 + 2
             let result = 0;
-
+                    //~ MULTIPLY     DIVIDE
             for (let o = 0; o < opera.length; o++) {
                 if (opera[o] == "*") {
-                    // calulations.splice(calulations.indexOf(opera[o] - 1), calulations.indexOf(opera[o] + 1), multiply(Number(nums[o]), Number(nums[o + 1])));
-                    // nums.splice(
-                    // 	`${nums[o]}${opera[o]}${nums[o + 1]}`,
-                    // 	multiply(Number(nums[o]), Number(nums[o + 1]))
-                    // );
-                    // nums.splice(calulations.indexOf(opera[o])-1, calulations.indexOf(opera[o] ) +1, multiply(Number(nums[o]), Number(nums[o + 1])));
                     result = multiply(Number(nums[o]), Number(nums[o + 1]));
-                    nums.splice(i, 2, result); // delete two num and add result
-                    opera.splice(i, o); // delete one opera
+                    nums.splice(o, 2, result); // delete two num and add result
+                    opera.splice(o, 1); // delete one opera
                     console.log(nums);
                 } else if (opera[o] == "/") {
-                    // calulations.splice(calulations.indexOf(opera[o]-1), calulations.indexOf(opera[o] + 1), divide(Number(nums[o]), Number(nums[o + 1])));
-                    // calulations.replace(
-                    // 	`${nums[o]}${opera[o]}${nums[o + 1]}`,
-                    // 	divide(Number(nums[o]), Number(nums[o + 1]))
+
                     result = divide(Number(nums[o]), Number(nums[o + 1]));
-                    nums.splice(i, 2, result); // delete two num and add result
-                    opera.splice(i, o); // delete one opera
+                    nums.splice(o, 2, result); // delete two num and add result
+                    opera.splice(o, 1); // delete one opera
                 }
-                // if (opera[i] == "*") {
-                // 	result = multiply(Number(nums[i]), Number(nums[i + 1]));
-                // } else if (opera[i] == "/") {
-                // 	result = divide(Number(nums[i]), Number(nums[i + 1]));
+                    //~ SUM  Subtract
                 for (let i = 0; i < opera.length; i++) {
                     if (opera[i] == "+") {
                         result = add(Number(nums[i]), Number(nums[i + 1]));
