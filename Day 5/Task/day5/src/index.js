@@ -2,12 +2,12 @@
 // and use it in the application
 
 const {
-	add,
-	subtract,
-	multiply,
-	divide,
-	randomInt,
-	randomTo50,
+    add,
+    subtract,
+    multiply,
+    divide,
+    randomInt,
+    randomTo50,
 } = require("./../lib/math.js");
 
 // TASK 1:
@@ -27,45 +27,79 @@ const { stdin: input, stdout: output } = require("node:process");
 
 const rl = createInterface({ input, output });
 
-console.log("TestMe :D"); // test
+console.log("Task 1 :"); // test
 // function input
 function inputQuestion() {
-	rl.question(
-		"Write Your Calculations: ",
-		(calulations) => {
-			// calulations > it will back as string
-			//* Breaker
-			let Breaker = ["continue", "cut", "break", "-1", "done", "no"];
-			if (Breaker.includes(calulations.toLowerCase())) {
-				// in case if i write Upper Case
+    rl.question(
+        "Write Your Calculations: ",
+        (calulations) => {
+            // calulations > it will back as string
+            //* Breaker
+            let Breaker = ["continue", "cut", "break", "-1", "done", "no"];
+            if (Breaker.includes(calulations.toLowerCase())) {
+                // in case if i write Upper Case
                 rl.close();
                 return; // it will stop whole function ( exit || no infinite loop )
-			}
+            }
 
-			// search by match or search /[+\-*/]/
-			// /[+\-*/]/ use \ to escape - so script will not think + to - it will make error
-			//* indexOf NOT WORK WITH REGEX
-			let opera = calulations[calulations.search(/[+\-*/]/)];
-			let nums = calulations.trim().split(opera); // split nums [2,3]
+            // search by match or search /[+\-*/]/
+            // /[+\-*/]/ use \ to escape - so script will not think + to - it will make error
+            //* indexOf NOT WORK WITH REGEX
+            // let opera = calulations[calulations.search(/[+\-*/]/)];
+            let opera = calulations.trim().match(/[+\-*/]/g); // g for global flag
+            //? work with only one operation but not with mutli opeartion (with no spcae, it work is there is space)
+            let nums = calulations.trim().match(/\d+\.?\d*/g); // split nums [2,3]
 
-			// let opera = calulations[calulations.trim().search(/[+,\-,*,/]/)]; // search by indexof or search [+,-,*,/]
-			//* if wrong operation
-			if (opera == "-1") {
-				// idk if back string or number , if fail
-				console.log("There Is No Operation");
-			}
-			if (opera == "+") {
-				console.log(add(Number(nums[0]), Number(nums[1])));
-			} else if (opera == "-") {
-				console.log(subtract(Number(nums[0]), Number(nums[1])));
-			} else if (opera == "*") {
-				console.log(multiply(Number(nums[0]), Number(nums[1])));
-			} else if (opera == "/") {
-				console.log(divide(Number(nums[0]), Number(nums[1])));
-			}
-			inputQuestion(); // DOES WORK ???
-		} // close call back function
-	); // close question
+            // let opera = calulations[calulations.trim().search(/[+,\-,*,/]/)]; // search by indexof or search [+,-,*,/]
+            //* if wrong operation
+            if (opera == "-1") {
+                // idk if back string or number , if fail
+                console.log("There Is No Operation");
+            }
+            // 2 + 2 + 2
+            let result = 0;
+
+            for (let o = 0; o < opera.length; o++) {
+                if (opera[o] == "*") {
+                    // calulations.splice(calulations.indexOf(opera[o] - 1), calulations.indexOf(opera[o] + 1), multiply(Number(nums[o]), Number(nums[o + 1])));
+                    // nums.splice(
+                    // 	`${nums[o]}${opera[o]}${nums[o + 1]}`,
+                    // 	multiply(Number(nums[o]), Number(nums[o + 1]))
+                    // );
+                    // nums.splice(calulations.indexOf(opera[o])-1, calulations.indexOf(opera[o] ) +1, multiply(Number(nums[o]), Number(nums[o + 1])));
+                    result = multiply(Number(nums[o]), Number(nums[o + 1]));
+                    nums.splice(i, 2, result); // delete two num and add result
+                    opera.splice(i, o); // delete one opera
+                    console.log(nums);
+                } else if (opera[o] == "/") {
+                    // calulations.splice(calulations.indexOf(opera[o]-1), calulations.indexOf(opera[o] + 1), divide(Number(nums[o]), Number(nums[o + 1])));
+                    // calulations.replace(
+                    // 	`${nums[o]}${opera[o]}${nums[o + 1]}`,
+                    // 	divide(Number(nums[o]), Number(nums[o + 1]))
+                    result = divide(Number(nums[o]), Number(nums[o + 1]));
+                    nums.splice(i, 2, result); // delete two num and add result
+                    opera.splice(i, o); // delete one opera
+                }
+                // if (opera[i] == "*") {
+                // 	result = multiply(Number(nums[i]), Number(nums[i + 1]));
+                // } else if (opera[i] == "/") {
+                // 	result = divide(Number(nums[i]), Number(nums[i + 1]));
+                for (let i = 0; i < opera.length; i++) {
+                    if (opera[i] == "+") {
+                        result = add(Number(nums[i]), Number(nums[i + 1]));
+                        nums.splice(i, 2, result); // delete two num and add result
+                        opera.splice(i, 1); // delete one opera
+                    } else if (opera[i] == "-") {
+                        result = subtract(Number(nums[i]), Number(nums[i + 1]));
+                        nums.splice(i, 2, result); // delete two num and add result
+                        opera.splice(i, 1); // delete one opera
+                    }
+                }
+            }
+            console.log("Result: ", result);
+            inputQuestion(); // DOES WORK ???
+        } // close call back function
+    ); // close question
 } // close function
 
 inputQuestion();
