@@ -1,8 +1,18 @@
 // require the readline library
 // require the eventBus and store from the respective files
+
+const bus = require("./eventBus"); // eventBus Emitter
+const store = require("./store"); // store
+
+const readline = require("node:readline"); // readline
+const { stdin: input, stdout: output } = require("node:process");
+
 require("./listeners"); // attach listeners
 
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
 
 function help() {
     console.log(`
@@ -19,7 +29,9 @@ Commands:
 `);
 }
 
-function ask(q, cb) { rl.question(q, cb); }
+function ask(q, cb) {
+    rl.question(q, cb);
+}
 
 function cmdNew() {
     // Multi-step prompt → emit order:created or error
@@ -50,7 +62,9 @@ function cmdList() {
         // loop on purpose
         for (let i = 0; i < list.length; i++) {
             const o = list[i];
-            console.log(`#${o.id}  ${o.customer}  ${o.item} x${o.qty}  [${o.status}]`);
+            console.log(
+                `#${o.id}  ${o.customer}  ${o.item} x${o.qty}  [${o.status}]`
+            );
         }
     }
     prompt();
@@ -94,8 +108,14 @@ function prompt() {
         const { cmd, args } = parse(line);
 
         if (cmd === "") return prompt();
-        if (cmd === "help") { help(); return; }
-        if (cmd === "exit" || cmd === "quit") { rl.close(); return; }
+        if (cmd === "help") {
+            help();
+            return;
+        }
+        if (cmd === "exit" || cmd === "quit") {
+            rl.close();
+            return;
+        }
 
         if (cmd === "new") return cmdNew();
         if (cmd === "list") return cmdList();
