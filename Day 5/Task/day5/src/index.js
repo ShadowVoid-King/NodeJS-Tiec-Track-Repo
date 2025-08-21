@@ -123,7 +123,7 @@ function guessGame() {
 		}
 	});
 }
-guessGame();
+// guessGame();
 
 // TASK 3 (Bouns 50 points):
 // Make a function that ask the user the following questions:
@@ -137,6 +137,23 @@ guessGame();
 // console.log(`Favorite language: ${fav || "(not specified)"}`);
 // console.log("----------------\n");
 
+rl.question("What is your name? ", (name) => {
+	rl.question("What is your age? ", (age) => {
+		if (age < 10) {
+			console.log("Invalid age");
+			rl.close();
+		} else {
+			rl.question("What is your favorite programming language? ", (fav) => {
+				console.log("\n--- Summary ---");
+				console.log(`Name: ${name || "(no name)"}`);
+				console.log(`Age: ${age}`);
+				console.log(`Favorite language: ${fav || "(not specified)"}`);
+				console.log("----------------\n");
+				rl.close();
+			});
+		}
+	});
+});
 
 
 /* TASK 1: - TEMP
