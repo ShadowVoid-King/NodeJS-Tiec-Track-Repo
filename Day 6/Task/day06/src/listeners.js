@@ -100,4 +100,4 @@ bus.on("errorLog", (error) => {
 
 // Export nothing; requiring this file attaches listeners
 
-module.exports = {};
+module.exports = {}; // it's empty because when i try to require in other files, doesn't make error becuase there is nothing to export so it's there but empty

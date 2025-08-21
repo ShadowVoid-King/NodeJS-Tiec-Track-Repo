@@ -91,7 +91,7 @@ function inputQuestion() {
 	); // close question
 } // close function
 
-inputQuestion();
+// inputQuestion();
 
 // TASK 2 (Bouns 50 points):
 // Make a guessing game that asks the user to guess a number between 0 and 50.
@@ -100,6 +100,30 @@ inputQuestion();
 // The user has 5 attempts to guess the number. if the attempt is wrong, the application will print "Try again 🤔" to the console.
 // If the user does not guess the number correctly 5 times, the application will print "You lost the game!! try again 🤔" to the console.
 // If the user guesses the number correctly, the application will print "You won the game!! congrats 🥳🥳" to the console.
+
+console.log("guessing game a number between 1 and 50\n");
+let count = 0;
+let guessMe = randomTo50(); // random 1 to 50
+
+function guessGame() {
+	rl.question("guess the number : ", (req) => {
+		requestNum = Number(req); // string to num
+		console.log("Debug", guessMe, requestNum, "\n");
+		if (requestNum !== guessMe) {
+			console.log("Try again 🤔");
+			count++;
+			guessGame();
+		} else if (requestNum === guessMe) {
+			console.log("You won the game!! congrats 🥳🥳");
+			rl.close();
+		}
+		if (count === 5) {
+			console.log("You lost the game!! try again 🤔");
+			rl.close();
+		}
+	});
+}
+guessGame();
 
 // TASK 3 (Bouns 50 points):
 // Make a function that ask the user the following questions:

@@ -4,9 +4,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
+      "name": "Debug Number Guess",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${file}" 
+      "program": "${workspaceFolder}\"/Day 5/Task/day5/src/index.js\"",
+      "console": "integratedTerminal",
+      "outputCapture": "std"
     }
   ]
 }

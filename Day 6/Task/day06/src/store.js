@@ -62,6 +62,12 @@ function findById(id) {
 function list() {
 	// return a shallow copy of the orders array
 	return orders.slice();
+	/* 
+	return orders.object.assign({}, orders);
+	return orders.object.create(orders);
+	return JSON.parse(JSON.stringify(orders));
+	return structuredClone(orders);
+	*/
 }
 
 function setStatus(id, newStatus) {
