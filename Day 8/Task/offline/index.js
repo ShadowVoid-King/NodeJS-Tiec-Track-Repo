@@ -19,7 +19,7 @@ rl.question("choose number ", (num) => {
 							email: email,
 						}),
 					})
-                    .then((res) => res.text())
+                    .then((res) => res.text())  // JSON(), i Change text() to Json DOWN
                     .then((data) => console.log(data))
                     .catch((err) => console.log(err));
                     rl.close(); // close

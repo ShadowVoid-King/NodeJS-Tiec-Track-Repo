@@ -1,57 +1,88 @@
-const express = require('express')
+// Express Server Entry Point
+const express = require("express");
+const { loadTasks, loadUsers, saveTasks } = require("./bouns");
 
+const app = express();
+const PORT = 6060;
 
-const app = express()
+// Local Database
+const tasks = [];
+const users = [];
 
-app.use(express.json())
+loadTasks(tasks, "data/tasks.json");
+loadUsers(users, "data/users.json");
 
+// Middleware
+app.use(express.json());
 
-let users = [{},{},{}]
+// Routes
+app.get("/api/tasks", (req, res) => {
+	// should get all tasks from tasks array
+    return res.json(tasks);
+});
 
-app.post('/login' , (req,res) => {
-    let {username, password} = req.body;
-    if (!username || !password) {
-        return res.status(400).send('Username and password are required');
-    }
-    for (let user of users) {
-        if (user.username === username && user.password === password) {
-            return res.status(200).send('Login successful');
-        }
-    }
-    return res.status(401).send('Invalid username or password');    
+app.get("/api/tasks/search", (req, res) => {
+	// query string should contain keyword and we should search in tasks array using this keyword
+	// If the keyword exists on title or description we should respond with this task
+	const keyword = req.query.keyword;
+	for (let i = 0; i < tasks.length; i++) {
+		const task = tasks[i];
+		if (task.title.includes(keyword) || task.description.includes(keyword)) {
+			return res.json(task);
+		}
+	}
+});
 
-})
+app.post("/api/tasks", (req, res) => {
+	// body should contain these info title, description, priority(high, low, medium)
 
-app.post('/register' , (req,res) => {
-    let {username ,password, email} = req.body;
-    if (!username || !password || !email) {
-        return res.status(400).send('All fields are required');
-    }
-    for (let user of users) {
-        if (user.username === username || user.email === email) {
-            return res.status(400).send('Username or email already exists');
-        }
-    }
-    users.push({username, password, email});
-    return res.status(201).send('User registered successfully');
-})
+	// KEEP THIS CODE AFTER ADDING TASK TO TASKS ARRAY
+	saveTasks(tasks, "data/tasks.json");
+});
 
-app.get('/user' ,(req,res) => {
-    let username = req.query.username;
-    if (!username) {
-        return res.status(400).send('Username is required');
-    }
-    for (let user of users) {
-        if (user.username === username) {
-            return res.status(200).json(user);
-        }
-    }
-    return res.json({'message' : 'username Not Found'})
-})
+app.get("/profile", (req, res) => {
+	// we get query string from req and search user in users array
+	const username = req.query.username;
+	const user = users.find((u) => u.username === username);
+	if (user) {
+		return res.json({
+			username: user.username,
+			email: user.email,
+		}); // it will break if not
+	}
+	return res.status(404).send("User not found");
+});
 
+app.post("/register", (req, res) => {
+	// body should contain these info username, email, password
+	const { username, email, password } = req.body;
+	if (!username || !email || !password) {
+		return res.status(400).send("Missing required fields");
+	}
+	if (users.find((u) => u.username === username)) {
+		return res.status(409).send("Username already exists");
+	}
+	users.push({ username, email, password });
+	res.status(201).send("User registered successfully");
+	// KEEP THIS CODE AFTER ADDING USER TO USERS ARRAY
+	saveTasks(users, "data/users.json");
+});
 
-// server listen
+app.post("/login", (req, res) => {
+	// body should contain these info username or email, password
+	const { username, password } = req.body;
+	const user = users.find(
+		(u) =>
+			(u.username === username || u.email === username) &&
+			u.password === password
+	);
+	if (user) {
+		return res.status(200).send(`Welcome ${user.username}`);
+	} else {
+		return res.status(401).send("Invalid username or password");
+	}
+});
 
-app.listen(3000,() =>{
-    console.log("Server is running on port 3000........")
-})
+app.listen(PORT, () => {
+	console.log(`Server is running on port ${PORT}`);
+});
