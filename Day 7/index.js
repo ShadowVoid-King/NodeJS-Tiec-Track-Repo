@@ -31,4 +31,4 @@ Promise.all([promise]) // Promise.all Should be in Array
 
 const { promises } = require("readline");
 
-promises.any
+// promises.any
