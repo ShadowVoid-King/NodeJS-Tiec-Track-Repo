@@ -18,14 +18,14 @@ app.use(express.json());
 // Routes
 app.get("/api/tasks", (req, res) => {
 	// should get all tasks from tasks array
-    return res.json(tasks); // show null array 
+    return res.json(tasks); // call back Tasks array
 });
 
 app.get("/api/tasks/search", (req, res) => {
 	// query string should contain keyword and we should search in tasks array using this keyword
 	// If the keyword exists on title or description we should respond with this task
 	const keyword = req.query.keyword;
-	for (let i = 0; i < tasks.length; i++) {
+	for (let i = 0; i < tasks.length; i++) { // or use OF Array
 		const task = tasks[i];
 		if (task.title.includes(keyword) || task.description.includes(keyword)) {
 			return res.json(task); // it will back if successed test
@@ -71,7 +71,7 @@ app.post("/register", (req, res) => {
 	users.push({ username, email, password });
 	res.status(201).send("User registered successfully");
 	// KEEP THIS CODE AFTER ADDING USER TO USERS ARRAY
-	saveTasks(users, "data/users.json"); // skip
+	saveUsers(users, "data/users.json"); // Change to saveUsers
 });
 
 app.post("/login", (req, res) => {
