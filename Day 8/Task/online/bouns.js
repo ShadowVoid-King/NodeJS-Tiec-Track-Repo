@@ -10,12 +10,17 @@
 const fs = require("fs"); // File System For Read and Write ( it will be Like DataBase )
 
 /* 
-Use async in servers > readFile , writeFile
-Use sync in scripts  > readFileSync , writeFileSync
+- Use async in servers > readFile , writeFile
+-Use sync in scripts  > readFileSync , writeFileSync
 
-each one need to be fs.
+- each one need to be fs.
 
-existsSync is deprecated, but often used.
+- existsSync is deprecated, but often used.
+
+- utf8 is the default encoding for readFileSync and writeFileSync, 
+but if i didn't add it; it MAYBE return a Buffter Object (Buffer be like a binary data)
+
+
 */
 
 function loadUsers(users, dbFile) {
@@ -53,7 +58,7 @@ function loadTasks(tasks, dbFile) {
  */
 function saveTasks(tasks, dbFile) {
     if (fs.existsSync(dbFile)) {
-        const data = JSON.stringify(tasks, null, 2); // Convert to JSON String
+        const data = JSON.stringify(tasks); // Convert to JSON String
         fs.writeFileSync(dbFile, data, "utf8"); // Write to file
         console.log(`Tasks saved to ${dbFile}`);
     } else {
@@ -68,9 +73,15 @@ function saveTasks(tasks, dbFile) {
  *     This is the path to the json file
  */
 function saveUsers(users, dbFile) {
-
+    if (fs.existsSync(dbFile)) {
+        const data = JSON.stringify(users); // Convert to JSON String
+        fs.writeFileSync(dbFile, data, "utf8"); // Write to file
+        console.log(`Users saved to ${dbFile}`);
+    } else {
+        console.log(`Database file ${dbFile} does not exist.`);
+    }
 }
-
+//! YOU STILL NEED DEBUG CODE
 module.exports = {
 	loadUsers,
 	loadTasks,

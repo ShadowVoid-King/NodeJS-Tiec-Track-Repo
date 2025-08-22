@@ -1,6 +1,6 @@
 // Express Server Entry Point
 const express = require("express");
-const { loadTasks, loadUsers, saveTasks } = require("./bouns");
+const { loadTasks, loadUsers, saveTasks ,saveUsers} = require("./bouns"); // U Forget Add saveUsers Here
 
 const app = express();
 const PORT = 6060;
@@ -18,14 +18,15 @@ app.use(express.json());
 // Routes
 app.get("/api/tasks", (req, res) => {
 	// should get all tasks from tasks array
-    return res.json(tasks); // call back Tasks array
+	return res.json(tasks); // call back Tasks array
 });
 
 app.get("/api/tasks/search", (req, res) => {
 	// query string should contain keyword and we should search in tasks array using this keyword
 	// If the keyword exists on title or description we should respond with this task
 	const keyword = req.query.keyword;
-	for (let i = 0; i < tasks.length; i++) { // or use OF Array
+	for (let i = 0; i < tasks.length; i++) {
+		// or use OF Array
 		const task = tasks[i];
 		if (task.title.includes(keyword) || task.description.includes(keyword)) {
 			return res.json(task); // it will back if successed test
@@ -34,16 +35,20 @@ app.get("/api/tasks/search", (req, res) => {
 });
 
 app.post("/api/tasks", (req, res) => {
-    // body should contain these info title, description, priority(high, low, medium)    
-    // KEEP THIS CODE AFTER ADDING TASK TO TASKS ARRAY
-    // object come inside array
-    const { title, description, priority } = req.body;
-    if (!title || !description || !priority) {
-        return res.status(400).send("Missing required fields");
+	// body should contain these info title, description, priority(high, low, medium)
+	// KEEP THIS CODE AFTER ADDING TASK TO TASKS ARRAY
+	// object come inside array
+	const { title, description, priority } = req.body;
+
+	if (!title || !description || !priority) { // if there is no Data Come it Error Message
+		return res.status(400).send("Missing required fields");
+	}
+    if (!["high", "medium", "low"].includes(priority)) { // 
+        return res.status(400).send("Invalid priority value");
     }
-    tasks.push({ title, description, priority });
+	tasks.push({ title, description, priority });
 	saveTasks(tasks, "data/tasks.json"); // skip
-    res.status(201).send("Task added successfully");
+	res.status(201).send("Task added successfully");
 });
 
 app.get("/profile", (req, res) => {
@@ -76,11 +81,10 @@ app.post("/register", (req, res) => {
 
 app.post("/login", (req, res) => {
 	// body should contain these info username or email, password
-	const { username, password , email} = req.body;
+	const { username, password, email } = req.body;
 	const user = users.find(
 		(u) =>
-			(u.username === username || u.email === email) &&
-			u.password === password
+			(u.username === username || u.email === email) && u.password === password
 	);
 	if (user) {
 		return res.status(200).send(`Welcome ${user.username}`);
