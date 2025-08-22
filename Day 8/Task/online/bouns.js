@@ -24,7 +24,7 @@ but if i didn't add it; it MAYBE return a Buffter Object (Buffer be like a binar
 */
 
 function loadUsers(users, dbFile) {
-	if (fs.existsSync(dbFile)) {
+	if (fs.existsSync(dbFile)) { // Return Boolean
 		// Returns true if the path exists, false otherwise.
 		const data = fs.readFileSync(dbFile, "utf8");
 		const parsedData = JSON.parse(data); // parse to JSON
