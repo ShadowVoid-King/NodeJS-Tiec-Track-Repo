@@ -72,6 +72,7 @@ function saveTasks(tasks, dbFile) {
  * @param {string} dbFile
  *     This is the path to the json file
  */
+
 function saveUsers(users, dbFile) {
     if (fs.existsSync(dbFile)) {
         const data = JSON.stringify(users); // Convert to JSON String

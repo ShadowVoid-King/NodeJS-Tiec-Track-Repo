@@ -1,6 +1,6 @@
 // Express Server Entry Point
 const express = require("express");
-const { loadTasks, loadUsers, saveTasks ,saveUsers} = require("./bouns"); // U Forget Add saveUsers Here
+const { loadTasks, loadUsers, saveTasks, saveUsers } = require("./bouns"); // U Forget Add saveUsers Here
 
 const app = express();
 const PORT = 6060;
@@ -9,8 +9,8 @@ const PORT = 6060;
 const tasks = [];
 const users = [];
 
-loadTasks(tasks, "data/tasks.json"); // SKIP
-loadUsers(users, "data/users.json"); // SKIP
+loadTasks(tasks, "data/tasks.json"); // [{},{},{}]
+loadUsers(users, "data/users.json"); // [{},{},{}]
 
 // Middleware
 app.use(express.json());
@@ -40,12 +40,14 @@ app.post("/api/tasks", (req, res) => {
 	// object come inside array
 	const { title, description, priority } = req.body;
 
-	if (!title || !description || !priority) { // if there is no Data Come it Error Message
+	if (!title || !description || !priority) {
+		// if there is no Data Come it Error Message
 		return res.status(400).send("Missing required fields");
 	}
-    if (!["high", "medium", "low"].includes(priority)) { // 
-        return res.status(400).send("Invalid priority value");
-    }
+	if (!["high", "medium", "low"].includes(priority)) {
+		//
+		return res.status(400).send("Invalid priority value");
+	}
 	tasks.push({ title, description, priority });
 	saveTasks(tasks, "data/tasks.json"); // skip
 	res.status(201).send("Task added successfully");
@@ -91,6 +93,11 @@ app.post("/login", (req, res) => {
 	} else {
 		return res.status(401).send("Invalid username or password");
 	}
+});
+
+app.delete("delete", (req, res) => {
+	const { username, password } = req.body;
+	// if ( !username && !password)
 });
 
 app.listen(PORT, () => {

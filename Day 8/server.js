@@ -55,10 +55,6 @@ app.post("/register", (request, respone) => {
 		return respone.status(200).send("Register Successfully");
 	}
 });
-console.log(db);
-app.listen(3000, () => {
-	console.log("Server IS Running ..............");
-});
 
 app.get("/profile", (request, respone) => {
 	respone.json({
@@ -67,3 +63,9 @@ app.get("/profile", (request, respone) => {
 		country: request.query.country,
 	});
 });
+
+
+		console.log(db);
+		app.listen(3000, () => {
+			console.log("Server IS Running ..............");
+		});
