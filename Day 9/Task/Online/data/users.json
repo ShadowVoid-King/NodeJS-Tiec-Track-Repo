@@ -1,1 +1,14 @@
-[{"username":"user1","email":"user1@example.com","password":"password1","role":"ADMIN"},{"username":"1","email":"1@example.com","password":"1","role":"ADMIN"}]
+[
+	{
+		"username": "user1",
+		"email": "user1@example.com",
+		"password": "password1",
+		"role": "ADMIN"
+	},
+	{
+		"username": "1",
+		"email": "1@example.com",
+		"password": "1",
+		"role": "ADMIN"
+	}
+]
