@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const PORT = 6060;
 
+const { loadTasks, loadUsers, saveTasks, saveUsers, loadLoggedInUser, saveLoggedInUser } = require("./utils.js");
+
 // Local Database
 const tasks = [];
 const users = [];
@@ -43,15 +45,15 @@ app.post("/api/tasks", (req, res) => {
 		title: req.body.title, // GET TITLE VALUE FROM request body,
 		description: req.body.description, // GET DESCRIPTION VALUE FROM request body,
 		priority: req.body.priority, // GET PRIORTY VALUE FROM request body,
-		username: req.body.username, // GET USERNAME FROM THE USER CURRENTLY LOGGED IN
+		username: loggedInUSer.username, // GET USERNAME FROM THE USER CURRENTLY LOGGED IN
     };
     // Add Check if user logged in or not from data/loggedinUser.Json
+    if (!loggedInUSer) {
+        return res.status(401).send("401, Unauthorized");
+    }
     if (!task.title || !task.description || !task.priority || !task.username) {
         // if there is no Data Come it Error Message
         return res.status(400).send("Missing required fields");
-    }
-    if (!users.find((u) => u.username === loggedInUSer.username)) {
-        return res.status(401).send("401 Unauthorized");
     }
     if (!["high", "medium", "low"].includes(task.priority)) {
         //
@@ -61,22 +63,37 @@ app.post("/api/tasks", (req, res) => {
 
 
 	// KEEP THIS CODE AFTER ADDING TASK TO TASKS ARRAY
-	saveTasks(tasks, "data/tasks.json");
+    saveTasks(tasks, "data/tasks.json");
+    res.status(201).send("Done Create Task")
 });
 
+// ~ DONE
 // YOU MUST BE LOGGED IN TO DO IT OR YOU ARE THE CREATOR OF THE TASK
 app.delete("/api/tasks/", (req, res) => {
     // request should contain id of task to delete
     // who can delete task will be user of task or admin role
     // user should authenizcated to see his tasks
-    const id = req.query.id;
-    
-    
+    const id = req.query.id; // it will 
 
-	// KEEP THIS CODE AFTER ADDING TASK TO TASKS ARRAY
-	saveTasks(tasks, "data/tasks.json");
+    if (!loggedInUSer) {
+        return res.status(401).send("401, Unauthorized");
+    }
+    const task = tasks.find((t, index) => index == id); // back task object by id to delete from file
+
+    if (!task) { // check if task exist
+        return res.status(404).send("Task not found");
+    }
+    if (loggedInUSer.role == "ADMIN" || loggedInUSer.username == task.username) { // Admin Role ( it can be any one) || logged user it can be me :D
+        const index = tasks.indexOf(task); // back task index
+        tasks.splice(index, 1); // splice update array data
+        // KEEP THIS CODE AFTER ADDING TASK TO TASKS ARRAY
+        saveTasks(tasks, "data/tasks.json");
+        return res.status(200).send("Task deleted successfully"); // POWER
+    }
+
 });
 
+// ~ DONE
 app.get("/profile", (req, res) => {
 	// we get query string from req and search user in users array
 	const username = req.query.username;
@@ -92,7 +109,25 @@ app.get("/profile", (req, res) => {
 
 // YOU MUST BE LOGGED IN AND HAVE ADMIN ROLE TO DO IT
 app.delete("/profile", (req, res) => {
-	// we get query string from req and search user in users array then delete this user
+    // we get query string from req and search user in users array then delete this user
+    // Who Can Delete is Profile is Admin Role OR User of account
+    // Check By Username to His Role
+    const username = req.query.username;
+    const user = users.find((u) => u.username === username);
+
+    if (!loggedInUSer) {
+        return res.status(401).send("401, Unauthorized");
+    }
+    if (!(loggedInUSer.role == "ADMIN" || loggedInUSer.username == username)) { // Admin Role ( it can be any one) || logged user it can be me :D
+        return res.status(403).send("Forbidden");
+    }
+    if (!user) { // check if he is exist
+        return res.status(404).send("User not found");
+    }
+    const index = users.indexOf(user); // back user index
+    users.splice(index, 1); // splice update array data
+    saveUsers(users, "data/users.json");
+    return res.status(200).send("User deleted successfully"); // POWER
 });
 
 //~ Done
@@ -129,7 +164,8 @@ app.post("/login", (req, res) => {
 		return res.status(401).json({ message: "Invalid credentials" });
 	}
 
-	saveLoggedInUser(user);
+    saveLoggedInUser(user);
+    return res.status(200).send("Okey Login");
 });
 
 app.listen(PORT, () => {

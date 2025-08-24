@@ -4,7 +4,10 @@
  * @param {string} dbFile
  *     This is the path to the json file
  */
-function loadTasks(tasks) {
+
+const fs = require("fs");
+
+function loadTasks(tasks, dbFile) {
         if (fs.existsSync(dbFile)) {
             const data = fs.readFileSync(dbFile, "utf8");
             const parsedData = JSON.parse(data);
@@ -21,7 +24,7 @@ function loadTasks(tasks) {
  * @param {string} dbFile
  *     This is the path to the json file
  */
-function saveTasks(tasks) {
+function saveTasks(tasks, dbFile) {
         if (fs.existsSync(dbFile)) {
             const data = JSON.stringify(tasks); // Convert to JSON String
             fs.writeFileSync(dbFile, data, "utf8"); // Write to file
@@ -37,7 +40,7 @@ function saveTasks(tasks) {
  * @param {string} dbFile
  *     This is the path to the json file
  */
-function loadUsers(users) {
+function loadUsers(users, dbFile) {
         if (fs.existsSync(dbFile)) { // Return Boolean
             // Returns true if the path exists, false otherwise.
             const data = fs.readFileSync(dbFile, "utf8");
@@ -54,7 +57,7 @@ function loadUsers(users) {
  * @param {string} dbFile
  *     This is the path to the json file
  */
-function saveUsers(users) {
+function saveUsers(users,dbFile) {
         if (fs.existsSync(dbFile)) {
             const data = JSON.stringify(users); // Convert to JSON String
             fs.writeFileSync(dbFile, data, "utf8"); // Write to file
@@ -94,11 +97,21 @@ function loadLoggedInUser() {
     if (fs.existsSync(dbFile)) {
         const data = fs.readFileSync(dbFile, "utf8");
         if (data) {
-            return parsedData = JSON.parse(data); // parse to JSON
+            parsedData = JSON.parse(data); // parse to JSON
+            return parsedData;
         } else {
-            console.log(`Database file ${dbFile} is empty.`);
+            return console.log(`Database file ${dbFile} is empty.`);
         }
     } else {
         return console.log(`Database file ${dbFile} does not exist.`);
     }
 }
+
+module.exports = {
+	loadUsers,
+	loadTasks,
+	saveTasks,
+    saveUsers,
+    saveLoggedInUser,
+    loadLoggedInUser
+};
