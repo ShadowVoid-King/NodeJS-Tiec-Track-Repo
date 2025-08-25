@@ -63,7 +63,6 @@ app.post("/api/tasks", (req, res) => {
         return res.status(400).send("Missing required fields");
     }
     if (!["high", "medium", "low"].includes(task.priority)) {
-        //
         return res.status(400).send("Invalid priority value");
     }
     tasks.push(task);
