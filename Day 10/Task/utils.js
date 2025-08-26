@@ -45,13 +45,9 @@ function saveUsers(users, dbFile) {
  */
 function saveLoggedInUser(user, dbFile) {
     // const dbFile = "data/loggedInUser.json";
-    if (fs.existsSync(dbFile)) {
-        const data = JSON.stringify(user); // Convert to JSON String
+        const data = JSON.stringify(user || {}); // Convert to JSON String
         fs.writeFileSync(dbFile, data, "utf8"); // Write to file
         console.log(`Logged in user saved to ${dbFile}`);
-    } else {
-        console.log(`Database file ${dbFile} does not exist.`);
-    }
 }
 
 /**

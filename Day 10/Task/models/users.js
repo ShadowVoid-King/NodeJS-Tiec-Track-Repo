@@ -7,7 +7,7 @@ const {
 const users = [];
 
 loadUsers(users);
-const loggedInUSer = loadLoggedInUser(users);
+const loggedInUSer = loadLoggedInUser("data/loggedInUser.json");
 
 module.exports = {users, loggedInUSer};
 /* 
