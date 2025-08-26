@@ -1,8 +1,8 @@
-const { message } = require("statuses");
 const { userData } = require("../models/users");
+const bcrypt = require('bcrypt')
 const register = async(req, res) => {
-	const { firstName, lastName, email,age, password } = req.body;
-	if (!firstName || !lastName || !email || !password || !age) {
+	const { firstName, lastName, username,email,age, password } = req.body;
+	if (!firstName || !lastName || !username || !email || !password || !age) {
 		return res.status(400).send("All fields are required");
     }
     // check if user already exists
@@ -10,13 +10,16 @@ const register = async(req, res) => {
     if (CheckUser) {
         return res.status(400).json({ message: "User already exists" });
     }
+    const hashPassword = await bcrypt.hash(password, 10); // it's async so we need to await
+
 	const addNewUser = new userData({
 		// keys should be the same as the schema
 		firstName,
-		lastName,
+        lastName,
+        username,
         email,
         age,
-		password,
+		password: hashPassword,
     });
     
     await addNewUser.save(); // to save the data to the database
