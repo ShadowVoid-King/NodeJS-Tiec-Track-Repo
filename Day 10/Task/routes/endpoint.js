@@ -1,36 +1,29 @@
 const { app } = require("../index");
 
 // controllers routes
+
+const { home } = require("../controllers/homeController");
+
 const {
-    registerGet,
-    registerPost,
+	registerGet,
+	registerPost,
 } = require("../controllers/registerController");
 
-const {
-    loginGet,
-    loginPost,
-} = require("../controllers/loginController");
+const { loginGet, loginPost } = require("../controllers/loginController");
+
+const { logoutGet } = require("../controllers/logoutController");
 
 const {
-    logoutGet,
-} = require("../controllers/logoutController");
-
-const {
-    addStudentGet,
-    addStudentPost,
-    studentsGet,
+	addStudentGet,
+	addStudentPost,
+	studentsGet,
 } = require("../controllers/studentController");
 
-const {
-    userGET,
-    deleteUserByID,
-} = require("../controllers/usersController");
+const { userGET, deleteUserByID } = require("../controllers/usersController");
 
 const { users } = require("../models/users"); // not used yet
 
-app.get("/", (req, res) => {
-    return res.render("index", { users });
-})
+app.get("/", home);
 
 app.get("/register", registerGet);
 app.post("/register", registerPost);
@@ -49,8 +42,9 @@ app.post("/delete-user/:id", deleteUserByID);
 
 // 404 Page
 app.get(/.*/, (req, res) => {
-    return res.status(404).send("404, Page Not Found! by Me :D");
-})
+    message = "Page Not Found";
+	return res.render("error", { message });
+});
 
 // app.get("/index", (req, res) => {
 //     return res.render("index", { users });
