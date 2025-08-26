@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title><%= username %></title>
+	</head>
+	<body>
+		<%-include('./partials/header') %> 
+        <% if (username) { %>
+		<h2>Name: <%= username %></h2>
+		<h2>Age: <%= age %></h2>
+		<h2>Phone: <%= phone %></h2>
+		<% if ( role == "ADMIN") { %>
+		<h2>Role: <%= role %></h2>
+		<%}%> <% }%>
+	</body>
+</html>

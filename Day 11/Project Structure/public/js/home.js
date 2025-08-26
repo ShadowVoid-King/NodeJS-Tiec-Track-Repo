@@ -1,0 +1,1 @@
+document.writeln("<h1>Home</h1>");

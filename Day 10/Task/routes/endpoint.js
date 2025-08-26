@@ -17,6 +17,9 @@ const {
 	addStudentGet,
 	addStudentPost,
 	studentsGet,
+	studentEditGet,
+	studentEditPost,
+	studentDeletePost,
 } = require("../controllers/studentController");
 
 const { userGET, deleteUserByID } = require("../controllers/usersController");
@@ -36,6 +39,10 @@ app.get("/logout", logoutGet);
 app.get("/add-student", addStudentGet);
 app.post("/add-student", addStudentPost);
 app.get("/students", studentsGet);
+
+app.get("/edit-student/:id", studentEditGet);
+app.post("/edit-student/:id", studentEditPost);
+app.post("/delete-student/:id", studentDeletePost);
 
 app.get("/users", userGET);
 app.post("/delete-user/:id", deleteUserByID);
