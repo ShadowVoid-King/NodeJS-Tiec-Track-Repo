@@ -1,0 +1,16 @@
+app.get('/login')
+app.post('/login')
+app.get('/register')
+app.post('/register')
+app.get('/logout')
+
+app.get('/add-student')
+app.post('/add-student')
+app.get('/students')
+app.get('/users')
+app.post('/delete-user/:id')
+
++ bonus 50*3 for each link
+app.get('/edit-student/:id')
+app.post('/edit-student/:id')
+app.post('/delete-student/:id')

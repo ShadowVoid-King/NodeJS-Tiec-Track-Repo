@@ -1,7 +1,7 @@
-const mongoose = require("mongoose")
+// const mongoose = require("mongoose")
 // const path = require("path");
 
-require("dotenv").config(); // to run the .env file
+// require("dotenv").config(); // to run the .env file
 // {path : path.join(__dirname, '../.env')}
 
 // const connect = async () => {
