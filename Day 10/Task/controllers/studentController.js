@@ -73,4 +73,19 @@ const studentsGet = (req, res) => {
 	res.render("view-students", { students, canEdit, canDelete });
 };
 
+/* 
+app.get('/edit-student/:id')
+app.post('/edit-student/:id')
+app.post('/delete-student/:id')
+*/
+const studentEditGet = (req, res) => {
+	
+}
+const studentEditPost = (req, res) => {
+	
+}
+
+const studentDeletePost = (req, res) => {
+	
+}
 module.exports = { addStudentGet, addStudentPost, studentsGet };

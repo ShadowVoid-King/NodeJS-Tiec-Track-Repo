@@ -17,7 +17,7 @@ const loginPost = (req, res) => {
     } else {
         return res.render("login", { message: "Invalid username or password" });
 	}
-	return res.redirect("/index", { message: "Login successful" });
+	return res.redirect("/add-student", { message: "Login successful" });
 };
 
 module.exports = { loginGet, loginPost };
