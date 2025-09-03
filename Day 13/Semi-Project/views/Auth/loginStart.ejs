@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			label,
+			input,
+			select {
+				margin: 10px;
+			}
+			form {
+				display: inline-grid;
+			}
+		</style>
+		<title>Login</title>
+	</head>
+	<body>
+		<h2>Login Page</h2>
+		<form action="auth/login/start" method="post">
+			<label for="username">username</label>
+			<input
+				type="text"
+				name="username"
+				id="username"
+				required
+				placeholder="Required"
+			/>
+			<label for="password">password</label>
+			<input
+				type="password"
+				name="password"
+				id="password"
+				required
+				placeholder="Required"
+			/>
+			<button type="submit" style="width: 100%">Login</button>
+		</form>
+	</body>
+</html>

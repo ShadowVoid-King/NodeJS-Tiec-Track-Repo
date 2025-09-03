@@ -4,7 +4,8 @@ const { profile } = require("./controllers/profileController");
 const { register } = require("./controllers/registerController");
 const { login } = require("./controllers/loginController");
 const { users } = require("./controllers/usersController");
-const {deleteUser} = require("./controllers/deleteUserController")
+const {deleteUser} = require("./controllers/deleteUserController");
+const { model } = require("mongoose");
 app.get("/", home);
 
 app.get("/profile/:name", profile);
@@ -16,3 +17,5 @@ app.post("/login", login);
 app.post("/users", users)
 
 app.delete("/delete-user", deleteUser)
+
+model.exports = { app };

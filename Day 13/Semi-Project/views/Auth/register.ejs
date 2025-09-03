@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<style>
+			label,
+			input,
+			select {
+				margin: 10px;
+			}
+			form {
+				display: inline-grid;
+			}
+		</style>
+		<title>Register</title>
+	</head>
+	<body>
+		<h2>Register Page</h2>
+		<form action="/auth/register" method="post" id="registerForm">
+			<label for="username">username</label>
+			<input
+				type="text"
+				name="username"
+				id="username"
+				required
+				placeholder="Required"
+			/>
+			<label for="email">email</label>
+			<input
+				type="email"
+				name="email"
+				id="email"
+				required
+				placeholder="Required"
+			/>
+			<label for="password">password</label>
+			<input
+				type="password"
+				name="password"
+				id="password"
+				required
+				placeholder="Required"
+			/>
+			<label for="role">Role:</label>
+			<select id="role" name="role" required>
+				<option value="">Select your role</option>
+				<option value="user">user</option>
+				<option value="admin">admin</option>
+			</select>
+			<hr />
+			<label for="firstName">firstName</label>
+			<input
+				type="text"
+				name="firstName"
+				id="firstName"
+				placeholder="Optional"
+			/>
+			<label for="lastName">lastName</label>
+			<input type="text" name="lastName" id="lastName" placeholder="Optional" />
+			<label for="address">address</label>
+			<input type="text" name="address" id="address" placeholder="Optional" />
+			<button type="submit" style="width: 100%">Create Account</button>
+		</form>
+		<p id="message"></p>
+	</body>
+	<script>
+		const form = document.getElementById("")
+	</script>
+</html>
