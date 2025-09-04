@@ -57,7 +57,8 @@ function findById(id) {
 		}
 	}
 	// Return the order if found, otherwise return null
-	return events.emit("error", "Order not found");
+	events.emit("error", "Order not found");
+	return null;
 }
 
 function list() {
