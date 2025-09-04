@@ -1,4 +1,4 @@
-const events = require("./node:events");
+const events = require("node:events");
 
 // An order: { id, customer, item, qty, status }   status ∈ "new" | "paid" | "packed" | "shipped" | "canceled"
 let nextId = 1;
@@ -30,21 +30,23 @@ function createOrder(customer, item, qty) {
 	// item: item.trim(),
 	// qty: Number(qty),
 	// status: "new"
-    // Add the order to the orders array
-    if (customer.trim() === "" || item.trim() === "" || qty <= 0) {
-        return events.emit("error", "Invalid inputs");
-    } else {
-        const newOrder = {
-            id: nextId++,
-            customer: customer.trim(),
-            item: item.trim(),
-            qty: Number(qty),
-            status: "new"
-        };
-        orders.push(newOrder);
-    }
-    // Return { ok:true, order }
-    return events.emit("order:created", newOrder);
+	// Add the order to the orders array
+	if (customer.trim() === "" || item.trim() === "" || qty <= 0) {
+		events.emit("error", "Invalid inputs");
+		return { ok: false, error: "Invalid inputs" };
+	} else {
+		const newOrder = {
+			id: nextId++,
+			customer: customer.trim(),
+			item: item.trim(),
+			qty: Number(qty),
+			status: "new",
+		};
+		orders.push(newOrder);
+	}
+	// Return { ok:true, order }
+	events.emit("order:created", newOrder);
+	return { ok: true, order: newOrder };
 }
 
 function findById(id) {
@@ -52,17 +54,16 @@ function findById(id) {
 	for (let i = 0; i < orders.length; i++) {
 		if (orders[i].id === id) {
 			return orders[i];
-		} else {
-			// Return the order if found, otherwise return null
-			return events.emit("error", "Order not found");
 		}
 	}
+	// Return the order if found, otherwise return null
+	return events.emit("error", "Order not found");
 }
 
 function list() {
 	// return a shallow copy of the orders array
 	return orders.slice();
-	/* 
+	/* 30 Bonus
 	return orders.object.assign({}, orders);
 	return orders.object.create(orders);
 	return JSON.parse(JSON.stringify(orders));
@@ -73,17 +74,18 @@ function list() {
 function setStatus(id, newStatus) {
 	// find the order by id from the orders array
 
-	findById(id);
+	const order = findById(id);
 
 	// if the order is not found, return { ok: false, error: "Order not found" }
 	if (!order) {
-		return events.emit("error", "Order not found");
+		events.emit("error", "Order not found");
+		return { ok: false, error: "Order not found" };
 		// if the order is found, update the status of the order to the newStatus
-	} else {
-		order.status = newStatus;
-	}
+	} 
 	// return { ok: true, order }
-	return events.emit("order:statusChanged", order);
+	order.status = newStatus;
+	events.emit("order:statusChanged", order);
+	return { ok: true, order };
 }
 
 // export the functions to be used in the application
