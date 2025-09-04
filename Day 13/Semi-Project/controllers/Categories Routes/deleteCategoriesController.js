@@ -29,10 +29,10 @@ const deleteCategories = async(req, res) => {
 			return res.status(404).json({ message: "Category not found" });
 		}
 		//? Check If Category Has Notes
-		// const getNotes = NotesData.find({ categoryID: id });
-		// if (getNotes) {
-		//     return res.status(400).json({ message: "Category has notes" });
-		// }
+		const getNotes = await NotesData.findOne({ categoryName: getCategories.name });
+		if (getNotes) {
+			return res.status(400).json({ message: "Category has notes" });
+		}
 		await CategoriesData.deleteOne({ _id: id, ownerUsername: getUser.username });
 		return res.status(200).json({ message: "Deleted successfully" });
 	} catch (error) {
