@@ -13,12 +13,17 @@ const forgetPassword = async (req, res) => {
 	if (checkEmail.otp !== otp) {
         return res.status(400).json({ message: "Invalid OTP" });
 	}
+	if (checkEmail.otpExpiry < Date.now()) {
+		return res.status(400).json({ message: "OTP has expired" });
+	}
     if (newPassword !== confirmPassword) {
         return res.status(400).json({ message: "Passwords do not match" });
     }
     const hashPassword = await bcrypt.hash(newPassword, 10);
 	await usersData.updateOne({ email }, { password: hashPassword }); // update password
-	await usersData.deleteOne({ email }); // delete otp from database
+	checkEmail.otp = null;
+	checkEmail.otpExpiry = null;
+	await checkEmail.save();
 	return res.json({ message: "Password changed successfully" });
 };
 module.exports = { forgetPassword };

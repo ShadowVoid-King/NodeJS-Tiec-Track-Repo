@@ -34,10 +34,6 @@ const users = new mongoose.Schema({
     otpExpiry : {
         type : Date,
         default : null
-    },
-    enableOtp : {
-        type : Boolean,
-        default : false
     }
 })
 

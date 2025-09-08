@@ -1,3 +1,5 @@
+dotenv = require('dotenv');
+dotenv.config();
 const express = require('express');
 const { connectDB } = require('./config/connDB');
 const mongoose = require('mongoose');
@@ -11,8 +13,8 @@ const  usersRouter = require('./router/usersRouter');
 const  studentsRouter  = require('./router/studentsRouter');
 
 const app = express();
-
 app.use(express.json())
+
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -29,7 +31,7 @@ connectDB()
 
 // Routes
 app.use('/auth', authRouter) // login register logout send-otp forget-password
-app.use('/users',checkAuth, usersRouter) // all, add, get:id, update, delete users
+app.use('/users', usersRouter) // all, add, get:id, update, delete users
 app.use('/students', checkAuth, studentsRouter) // all, add, get:id, update, delete students
 
 

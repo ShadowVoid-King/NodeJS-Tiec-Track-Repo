@@ -37,10 +37,6 @@ const register = async (req, res) => {
     }
     
 }
-    
-// ({}, key, {})
-    
-
 
 
 module.exports = { register }

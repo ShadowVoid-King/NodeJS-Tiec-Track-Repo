@@ -4,7 +4,9 @@ const jwt = require('jsonwebtoken');
 
 const login = async(req,res) => {
     try {
-        const {usernameOrEmail, password} = req.body;
+        const { username, password } = req.body;
+        const usernameOrEmail = username || email;
+        
         if (!usernameOrEmail || !password){
             return res.status(400).json({message : "All inputs are required"})
         }
@@ -16,7 +18,7 @@ const login = async(req,res) => {
         if (!comparePassword){
             return res.status(400).json({message : "Invalid password"})
         }
-        const token = jwt.sign({firstName : getUser.firstName, lastName :getUser.lastName, email: getUser.email, role : getUser.role},  process.env.JWT_SECRET, { expiresIn: "1m" });
+        const token = jwt.sign({firstName : getUser.firstName, lastName :getUser.lastName, email: getUser.email, role : getUser.role},  process.env.JWT_SECRET, { expiresIn: "5m" });
         req.session.token = token;
         return res.json({message : 'login done'})
     } 
