@@ -31,5 +31,5 @@ const studentsSchema = new mongoose.Schema({
 	},
 });
 
-const studentsData = mongoose.model("studentsData", studentsSchema);
+const studentsData = mongoose.model("students", studentsSchema);
 module.exports = { studentsData };
