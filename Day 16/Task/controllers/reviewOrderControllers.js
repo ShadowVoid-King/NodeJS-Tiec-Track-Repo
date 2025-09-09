@@ -17,6 +17,18 @@ const reviewOrderController = async (req, res) => {
         if (!email || !comment || !rating) {
             return res.status(400).json({ message: "All fields are required" });
         }
+        if (typeof rating !== "number") {
+            return res.status(400).json({ message: "Rating must be a number" });
+        }
+        if ( isNaN(rating)) {
+            return res.status(400).json({ message: "Rating must be a number" });
+        }
+        if ( typeOf(comment) !== "string") {
+            return res.status(400).json({ message: "Comment must be a string" });
+        }
+        if (typeOf(email) !== "string") {
+            return res.status(400).json({ message: "Email must be a string" });
+        }
         if (rating < 1 || rating > 5) {
             return res.status(400).json({ message: "Rating must be between 1 and 5" });
         }
