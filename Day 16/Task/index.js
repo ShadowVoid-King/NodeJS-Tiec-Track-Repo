@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
 const authRouter = require('./router/authRouter');
+const reviewMe = require('./router/reviewRouter');
 
 const app = express();
 app.use(express.json());
@@ -22,7 +23,7 @@ app.use(session({
 }))
 
 
-app.use('/auth', authRouter)
+app.use('/review', reviewMe)
 
 mongoose.connection.once('connected', () => {
     console.log('Connected to MongoDB');

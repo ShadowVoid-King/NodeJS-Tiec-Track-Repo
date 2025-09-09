@@ -1,11 +1,40 @@
 const { reviewOrder } = require("../models/reviews");
+const {SendEmailToUser} = require("../utils/mailSender")
 
 
 const reviewOrderController = async (req, res) => {
-    const { email, comment, rating } = req.body;
     try {
+        const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: "Order ID is required" });
+        }
+        const { email, comment, rating } = req.body;
+        if (!email || !comment || !rating) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+        if (rating < 1 || rating > 5) {
+            return res.status(400).json({ message: "Rating must be between 1 and 5" });
+        }
+        const emailVaild = ["gmail.com", "yahoo.com", "hotmail.com"];
+        if (!emailVaild.includes(email.split("@")[1])) {
+            return res.status(400).json({ message: "Invalid email domain" });
+        }
+        const checkEmail = await reviewOrder.findOne({ email });
+        if (checkEmail) {
+            return res.status(400).json({ message: "Your Are Already Reviewed" });
+        }
         const review = new reviewOrder({ email, comment, rating });
         await review.save();
+        if (rating === 1 || rating === 2) {
+            SendEmailToUser(email, "Rating Message", "we will fix problem, make it better");
+        } else if (rating === 3) {
+            SendEmailToUser(email, "Rating Message", "thanks, we will make it better");
+        }else if (rating === 4) {
+            SendEmailToUser(email, "Rating Message", "thanks, we are proud of our serives");
+        }else if (rating === 5) {
+            SendEmailToUser(email, "Rating Message", "thanks, we are so proud of our serives and for your support");
+        }
+
         res.status(201).json({ message: "Review added successfully" });
     } catch (error) {
         res.status(500).json({ message: "Error adding review", error: error.message });
