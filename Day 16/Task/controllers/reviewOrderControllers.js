@@ -52,7 +52,7 @@ const reviewOrderController = async (req, res) => {
 		if (!emailVaild.includes(cleanEmail.split("@")[1])) {
 			return res.status(400).json({ message: "Invalid email domain" });
 		}
-		const checkEmail = await reviewData.findOne({ orderId: orderId, ؤemail: cleanEmail });
+		const checkEmail = await reviewData.findOne({ orderId: orderId, email: cleanEmail });
 		if (checkEmail) {
 			return res.status(400).json({ message: "You have already reviewed this order" });
 		}
