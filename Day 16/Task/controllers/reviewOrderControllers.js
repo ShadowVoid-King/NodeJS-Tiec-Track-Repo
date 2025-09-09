@@ -11,7 +11,7 @@ const reviewOrderController = async (req, res) => {
 			return res.status(400).json({ message: "Order ID is required" });
 		}
 		const checkOrder = await orderData.findOne({
-			_id: mongoose.Types.ObjectId(orderId),
+			_id: orderId
 		});
 		if (!checkOrder) {
 			return res.status(404).json({ message: "Order not found" });
