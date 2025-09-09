@@ -9,6 +9,8 @@ const reviewOrder = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        lowercase: true,
+        trim: true
     },
     comment: {
         type: String,
@@ -17,6 +19,8 @@ const reviewOrder = new mongoose.Schema({
     rating: {
         type: Number,
         required: true,
+        min: 1,
+        max: 5
     },
     createdAt: {
         type: Date,
