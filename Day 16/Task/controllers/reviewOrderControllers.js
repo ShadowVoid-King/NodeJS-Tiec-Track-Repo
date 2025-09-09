@@ -23,7 +23,7 @@ const reviewOrderController = async (req, res) => {
         if ( isNaN(rating)) {
             return res.status(400).json({ message: "Rating must be a number" });
         }
-        if ( typeOf(comment) !== "string") {
+        if ( typeof comment !== "string") {
             return res.status(400).json({ message: "Comment must be a string" });
         }
         if (typeOf(email) !== "string") {
@@ -43,7 +43,7 @@ const reviewOrderController = async (req, res) => {
         if (!emailVaild.includes(email.split("@")[1])) {
             return res.status(400).json({ message: "Invalid email domain" });
         }
-        const checkEmail = await reviewOrder.findOne({ email });
+        const checkEmail = await reviewOrder.findOne({ id,email });
         if (checkEmail) {
             return res.status(400).json({ message: "Your Are Already Reviewed" });
         }

@@ -1,4 +1,3 @@
-const { name } = require('ejs');
 const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
@@ -20,6 +19,6 @@ const orderSchema = new mongoose.Schema({
     }
 })
 
-const orderData =mongoose.model("Order", orderSchema);
+const orderData =mongoose.model("order", orderSchema);
 
 module.exports = { orderData };
