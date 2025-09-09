@@ -1,4 +1,4 @@
-const { reviewOrder } = require("../models/reviews");
+const { reviewData } = require("../models/reviews");
 const { orderData } = require("../models/order");
 const {SendEmailToUser} = require("../utils/mailSender")
 
@@ -9,7 +9,7 @@ const reviewOrderController = async (req, res) => {
         if (!id) {
             return res.status(400).json({ message: "Order ID is required" });
         }
-        const checkOrder = await orderData.findOne({ orderId: id });
+        const checkOrder = await orderData.findOne({ _id: id });
         if (!checkOrder) {
             return res.status(404).json({ message: "Order not found" });
         }
@@ -26,7 +26,7 @@ const reviewOrderController = async (req, res) => {
         if ( typeof comment !== "string") {
             return res.status(400).json({ message: "Comment must be a string" });
         }
-        if (typeOf(email) !== "string") {
+        if (typeof email !== "string") {
             return res.status(400).json({ message: "Email must be a string" });
         }
         if (rating < 1 || rating > 5) {
@@ -43,18 +43,20 @@ const reviewOrderController = async (req, res) => {
         if (!emailVaild.includes(email.split("@")[1])) {
             return res.status(400).json({ message: "Invalid email domain" });
         }
-        const checkEmail = await reviewOrder.findOne({ id,email });
+        const checkEmail = await reviewData.findOne({ orderId: id, email });
         if (checkEmail) {
             return res.status(400).json({ message: "Your Are Already Reviewed" });
         }
-        const review = new reviewOrder({ email, comment, rating });
+        const review = new reviewData({ orderId: id, email, comment, rating });
+
         await review.save();
+
         if (rating === 1 || rating === 2) {
             SendEmailToUser(email, "Rating Message", "we will fix problem, make it better");
         } else if (rating === 3) {
             SendEmailToUser(email, "Rating Message", "thanks, we will make it better");
         }else if (rating === 4) {
-            SendEmailToUser(email, "Rating Message", "thanks, we are proud of our serives");
+            SendEmailToUser(email, "Rating Message", "thanks, we are proud of our services");
         }else if (rating === 5) {
             SendEmailToUser(email, "Rating Message", "thanks, we are so proud of our serives and for your support");
         }

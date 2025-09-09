@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 
-const reviewOrder =  new mongoose.Schema({
+const reviewOrder = new mongoose.Schema({
+    orderId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "order",
+        required: true,
+    },
     email: {
         type: String,
         required: true,
@@ -19,6 +24,9 @@ const reviewOrder =  new mongoose.Schema({
     }
 })
 
-mongoose.model("Review", reviewOrder);
+// one review per order
+reviewOrder.index({ orderId: 1, email: 1 }, { unique: true });
 
-module.exports = { reviewOrder };
+const reviewData = mongoose.model("Review", reviewOrder);
+
+module.exports = { reviewData };
