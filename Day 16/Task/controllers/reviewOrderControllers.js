@@ -1,15 +1,17 @@
 const { reviewData } = require("../models/reviews");
 const { orderData } = require("../models/order");
-const {SendEmailToUser} = require("../utils/mailSender")
+const { SendEmailToUser } = require("../utils/mailSender")
+const mongoose = require("mongoose");
 
 
 const reviewOrderController = async (req, res) => {
     try {
-        const { id } = req.params;
-        if (!id) {
+        const orderId = req.params.id || req.body.orderId;
+
+        if (!orderId) {
             return res.status(400).json({ message: "Order ID is required" });
         }
-        const checkOrder = await orderData.findOne({ _id: id });
+        const checkOrder = await orderData.findOne({ _id: mongoose.Types.ObjectId(orderId) });
         if (!checkOrder) {
             return res.status(404).json({ message: "Order not found" });
         }
@@ -47,7 +49,7 @@ const reviewOrderController = async (req, res) => {
         if (checkEmail) {
             return res.status(400).json({ message: "Your Are Already Reviewed" });
         }
-        const review = new reviewData({ orderId: id, email, comment, rating });
+        const review = new reviewData({ orderId: order._id, email, comment, rating });
 
         await review.save();
 

@@ -3,7 +3,6 @@ const session = require('express-session');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
-const authRouter = require('./router/authRouter');
 const reviewMe = require('./router/reviewRouter');
 
 const app = express();
