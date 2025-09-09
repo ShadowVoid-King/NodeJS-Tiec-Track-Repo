@@ -9,7 +9,10 @@ const reviewOrderController = async (req, res) => {
 
 		if (!orderId) {
 			return res.status(400).json({ message: "Order ID is required" });
-		}
+        }
+        if (!mongoose.Types.ObjectId.isValid(orderId)) {
+            return res.status(400).json({ message: "Invalid order ID" });
+        }
 		const checkOrder = await orderData.findOne({
 			_id: orderId
 		});
