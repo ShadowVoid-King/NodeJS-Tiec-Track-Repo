@@ -1,0 +1,186 @@
+{
+  "info": {
+    "name": "NodeJS-Tiec-Track-Repo API",
+    "_postman_id": "a3d0c21e-57b9-4f3b-bbe5-20fbc4f37a9c",
+    "description": "Collection for testing NodeJS-Tiec-Track-Repo project (Gateway at 127.0.0.1:5000).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testUser\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Verify Account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/verified-account",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Send OTP",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/send-otp",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\"\n}"
+            }
+          }
+        },
+        {
+          "name": "New Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/new-password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"newPassword\": \"654321\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/auth/logout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Group",
+      "item": [
+        {
+          "name": "Create Group",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/group/create-group",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"My Test Group\",\n  \"description\": \"A sample group\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Group By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/group/get-group/:id"
+          }
+        },
+        {
+          "name": "Add Post To Group",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/group/add-post-to-group",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"groupId\": \"<group_id>\",\n  \"postId\": \"<post_id>\"\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Post",
+      "item": [
+        {
+          "name": "Add New Post",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/post/add-new-post",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testUser\",\n  \"title\": \"My First Post\",\n  \"description\": \"This is a post description\",\n  \"comment\": \"Nice!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Post By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/post/get-post/:id"
+          }
+        },
+        {
+          "name": "Delete Post",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/post/delete-post/:id"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reel",
+      "item": [
+        {
+          "name": "Add New Reel",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/reel/add-new-reel",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testUser\",\n  \"videoUrl\": \"http://example.com/video.mp4\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Reel By ID",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reel/get-reel/:id"
+          }
+        },
+        {
+          "name": "Get All Reels",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reel/get-all-reels"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:5000"
+    }
+  ]
+}

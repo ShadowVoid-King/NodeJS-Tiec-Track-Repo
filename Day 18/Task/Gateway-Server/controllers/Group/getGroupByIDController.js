@@ -13,4 +13,4 @@ const getGroupByID = async (req, res) => {
     }
 };
 
-module.exports = getGroupByID;
+module.exports = {getGroupByID};

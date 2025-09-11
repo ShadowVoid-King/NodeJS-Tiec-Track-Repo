@@ -1,3 +1,6 @@
+# Docker ( look like docker)
+to run whole servers ".\run-servers.bat"
+
 # Ports
 5000 - gateway
 3000 - auth

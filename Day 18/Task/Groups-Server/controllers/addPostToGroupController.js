@@ -1,4 +1,4 @@
-const { groupsData } = require("../models/posts");
+const { groupsData } = require("../models/groups");
 const mongoose = require("mongoose");
 
 const addPostToGroup = async (req, res) => {
