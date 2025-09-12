@@ -1,5 +1,5 @@
 {
-  "name": "e-comm",
+  "name": "Auth-Server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

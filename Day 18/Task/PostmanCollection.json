@@ -17,7 +17,7 @@
             "url": "{{baseUrl}}/auth/register",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"address\": [{\n    \"city\": \"Cairo\",\n    \"street\": \"Main\"\n  }],\n  \"password\": \"12345678\",\n  \"role\": \"user\"\n}"
+              "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"username\": \"testuser\",\n  \"email\": \"test@gmail.com\",\n  \"address\": [{\n    \"city\": \"Cairo\",\n    \"street\": \"Main\"\n  }],\n  \"password\": \"12345678\",\n  \"role\": \"user\"\n}"
             }
           }
         },
@@ -29,7 +29,7 @@
             "url": "{{baseUrl}}/auth/login",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"usernameOrEmail\": \"test@example.com\",\n  \"password\": \"12345678\"\n}"
+              "raw": "{\n  \"usernameOrEmail\": \"test@gmail.com\",\n  \"password\": \"12345678\"\n}"
             }
           }
         },
@@ -41,7 +41,7 @@
             "url": "{{baseUrl}}/auth/verified-account",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\"\n}"
+              "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"otp\": \"123456\"\n}"
             }
           }
         },
@@ -53,7 +53,7 @@
             "url": "{{baseUrl}}/auth/send-otp",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\"\n}"
+              "raw": "{\n  \"email\": \"test@gmail.com\"\n}"
             }
           }
         },
@@ -65,7 +65,7 @@
             "url": "{{baseUrl}}/auth/new-password",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\",\n  \"password\": \"newPass123\",\n  \"confirmPassword\": \"newPass123\"\n}"
+              "raw": "{\n  \"email\": \"test@gmail.com\",\n  \"otp\": \"123456\",\n  \"password\": \"newPass123\",\n  \"confirmPassword\": \"newPass123\"\n}"
             }
           }
         },
@@ -89,7 +89,7 @@
             "url": "{{baseUrl}}/groups/create-group",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"testuser\",\n  \"title\": \"My Test Group\",\n  \"description\": \"A sample group\",\n  \"post\": \"<post_id>\"\n}"
+              "raw": "{\n  \"username\": \"testuser\",\n  \"title\": \"My Test Group\",\n  \"description\": \"A sample group\",\n  \"posts\": []\n}"
             }
           }
         },
@@ -180,7 +180,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": "http://127.0.0.1:5000"
+      "value": "http://127.0.0.1:3001"
     }
   ]
 }

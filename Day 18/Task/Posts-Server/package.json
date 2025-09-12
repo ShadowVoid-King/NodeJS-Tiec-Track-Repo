@@ -1,5 +1,5 @@
 {
-  "name": "e-comm",
+  "name": "Post-Server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

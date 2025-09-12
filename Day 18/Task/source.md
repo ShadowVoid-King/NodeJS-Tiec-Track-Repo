@@ -2,7 +2,7 @@
 to run whole servers ".\run-servers.bat"
 
 # Ports
-5000 - gateway
+9000 - gateway
 3000 - auth
 4000 - users
 6000 - Posts

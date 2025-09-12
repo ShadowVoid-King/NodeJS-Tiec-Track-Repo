@@ -6,6 +6,7 @@ const authRouter = require('./router/authRouter');
 const {checkReq} = require('./middleware/checkREQ')
 const app = express();
 app.use(express.json());
+express.urlencoded({ extended: true });
 app.use(cors());
 app.use(checkReq)
 
