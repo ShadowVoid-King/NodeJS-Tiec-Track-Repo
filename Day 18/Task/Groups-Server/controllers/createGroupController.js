@@ -12,10 +12,10 @@ const createGroup = async (req, res) => {
 		// if (checkUser.username !== username) {
 		// 	return res.status(400).json({ error: "Unauthorized" });
         // }
-        if (post.length > 0) {
-            return res.status(400).json({ error: "Cannot create group with Empty post" });
+        if (post.length === 0) {
+            return res.status(400).json({ error: "Cannot create group with empty post" });
         }
-        if ( mongoose.Types.ObjectId.isValid(post) ) {
+        if (!mongoose.Types.ObjectId.isValid(post)) {
             return res.status(400).json({ error: "Post ID is not valid" });
         }
         // Create Group
@@ -23,7 +23,7 @@ const createGroup = async (req, res) => {
 			username,
 			title,
             description,
-            posts
+            post
 		});
 		await newGroup.save();
 		res.status(201).json(newGroup);

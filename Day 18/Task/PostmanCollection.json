@@ -17,7 +17,7 @@
             "url": "{{baseUrl}}/auth/register",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"testUser\",\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+              "raw": "{\n  \"firstName\": \"Test\",\n  \"lastName\": \"User\",\n  \"username\": \"testuser\",\n  \"email\": \"test@example.com\",\n  \"address\": [{\n    \"city\": \"Cairo\",\n    \"street\": \"Main\"\n  }],\n  \"password\": \"12345678\",\n  \"role\": \"user\"\n}"
             }
           }
         },
@@ -29,7 +29,7 @@
             "url": "{{baseUrl}}/auth/login",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"123456\"\n}"
+              "raw": "{\n  \"usernameOrEmail\": \"test@example.com\",\n  \"password\": \"12345678\"\n}"
             }
           }
         },
@@ -65,7 +65,7 @@
             "url": "{{baseUrl}}/auth/new-password",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"email\": \"test@example.com\",\n  \"newPassword\": \"654321\"\n}"
+              "raw": "{\n  \"email\": \"test@example.com\",\n  \"otp\": \"123456\",\n  \"password\": \"newPass123\",\n  \"confirmPassword\": \"newPass123\"\n}"
             }
           }
         },
@@ -86,10 +86,10 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": "{{baseUrl}}/group/create-group",
+            "url": "{{baseUrl}}/groups/create-group",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"name\": \"My Test Group\",\n  \"description\": \"A sample group\"\n}"
+              "raw": "{\n  \"username\": \"testuser\",\n  \"title\": \"My Test Group\",\n  \"description\": \"A sample group\",\n  \"post\": \"<post_id>\"\n}"
             }
           }
         },
@@ -97,7 +97,7 @@
           "name": "Get Group By ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/group/get-group/:id"
+            "url": "{{baseUrl}}/groups/get-group/:id"
           }
         },
         {
@@ -105,7 +105,7 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": "{{baseUrl}}/group/add-post-to-group",
+            "url": "{{baseUrl}}/groups/add-post-to-group",
             "body": {
               "mode": "raw",
               "raw": "{\n  \"groupId\": \"<group_id>\",\n  \"postId\": \"<post_id>\"\n}"
@@ -122,10 +122,10 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": "{{baseUrl}}/post/add-new-post",
+            "url": "{{baseUrl}}/posts/add-new-post",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"testUser\",\n  \"title\": \"My First Post\",\n  \"description\": \"This is a post description\",\n  \"comment\": \"Nice!\"\n}"
+              "raw": "{\n  \"username\": \"testuser\",\n  \"title\": \"My First Post\",\n  \"description\": \"This is a post description\",\n  \"comment\": \"Nice!\"\n}"
             }
           }
         },
@@ -133,14 +133,14 @@
           "name": "Get Post By ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/post/get-post/:id"
+            "url": "{{baseUrl}}/posts/get-post/:id"
           }
         },
         {
           "name": "Delete Post",
           "request": {
             "method": "DELETE",
-            "url": "{{baseUrl}}/post/delete-post/:id"
+            "url": "{{baseUrl}}/posts/delete-post/:id"
           }
         }
       ]
@@ -153,10 +153,10 @@
           "request": {
             "method": "POST",
             "header": [{ "key": "Content-Type", "value": "application/json" }],
-            "url": "{{baseUrl}}/reel/add-new-reel",
+            "url": "{{baseUrl}}/reels/add-new-reel",
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"username\": \"testUser\",\n  \"videoUrl\": \"http://example.com/video.mp4\"\n}"
+              "raw": "{\n  \"username\": \"testuser\",\n  \"title\": \"My Reel\",\n  \"description\": \"desc\",\n  \"urlVideo\": \"http://example.com/video.mp4\"\n}"
             }
           }
         },
@@ -164,14 +164,14 @@
           "name": "Get Reel By ID",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/reel/get-reel/:id"
+            "url": "{{baseUrl}}/reels/get-reel/:id"
           }
         },
         {
           "name": "Get All Reels",
           "request": {
             "method": "GET",
-            "url": "{{baseUrl}}/reel/get-all-reels"
+            "url": "{{baseUrl}}/reels/get-all-reels"
           }
         }
       ]

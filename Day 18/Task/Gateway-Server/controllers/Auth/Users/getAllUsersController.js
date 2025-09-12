@@ -1,4 +1,4 @@
-const fetchGETREQUEST = require('../../utils/fetchServer');
+const { fetchGETREQUEST } = require('../../../utils/fetchServer');
 
 const getAllUsers = async (req, res) => {
     try {
