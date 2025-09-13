@@ -24,11 +24,15 @@ const fetchPOSTREQUEST = async (url, body) => {
 		console.log("FETCHING URL:", url, "BODY:", body); // Debug log
 		const response = await _fetch(url, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: {
+				"Content-Type": "application/json",
+				'username': process.env.USERNAME_SERVER,
+				'password': process.env.PASSWORD_SERVER,
+			},
 			body: JSON.stringify(body),
 		});
-        const data = await response.json();
-        return data
+		const data = await response.json();
+		return data;
 	} catch (error) {
 		console.log(error);
 	}
@@ -40,8 +44,8 @@ const fetchGETREQUEST = async (url) => {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				username: process.env.USERNAME_SERVER,
-				password: process.env.PASSWORD_SERVER,
+				'username': process.env.USERNAME_SERVER,
+				'password': process.env.PASSWORD_SERVER,
 			},
 		});
 		const data = await response.json();
@@ -57,8 +61,8 @@ const fetchDELETEREQUEST = async (url) => {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
-				username: process.env.USERNAME_SERVER,
-				password: process.env.PASSWORD_SERVER,
+				'username': process.env.USERNAME_SERVER,
+				'password': process.env.PASSWORD_SERVER,
 			},
 		});
 		const data = await response.json();

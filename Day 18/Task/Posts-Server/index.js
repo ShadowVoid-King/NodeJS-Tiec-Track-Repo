@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
-const postRouter = require('./router/postRouter');
 const {checkReq} = require('./middleware/checkREQ')
+const postRouter = require('./router/postRouter');
 const app = express();
 app.use(express.json());
 app.use(cors());

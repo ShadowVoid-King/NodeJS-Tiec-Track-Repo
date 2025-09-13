@@ -6,7 +6,7 @@ const deletePost = async (req, res) => {
         if (!id) {
             return res.status(400).json({ message: 'Post ID is required' });
         }
-        const data = await fetchDELETEREQUEST(`http://127.0.0.1:6000/posts/delete-post/${id}`);
+        const data = await fetchDELETEREQUEST(`http://127.0.0.1:6060/posts/delete-post/${id}`);
         return res.json({ message: data });
     } catch (error) {
         res.status(500).json({ error: error.message });
