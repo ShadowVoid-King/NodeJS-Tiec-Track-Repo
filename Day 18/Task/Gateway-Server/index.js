@@ -9,13 +9,14 @@ const reelsRouter = require("./router/reelsRouter");
 
 const app = express();
 app.use(express.json());
-express.urlencoded({ extended: true });
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 // Middleware 
 app.use((req, res, next) => {
 	console.log("GATEWAY INCOMING REQUEST:", req.method, req.path, req.body);
 	next();
 });
+
 app.use(
 	session({
 		secret: process.env.SESSION_SECRET,

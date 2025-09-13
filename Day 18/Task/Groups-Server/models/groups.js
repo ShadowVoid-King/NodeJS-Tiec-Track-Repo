@@ -13,7 +13,7 @@ const groups = new mongoose.Schema({
     description: {
         type: String,
         required: true
-    }, post: {
+    }, posts: {
         type: String,
         required: true,
         ref: 'posts',
@@ -24,3 +24,4 @@ const groups = new mongoose.Schema({
 
 const groupsData = mongoose.model('groups', groups);
 module.exports = { groupsData }
+

@@ -15,7 +15,7 @@ const posts = new mongoose.Schema({
         required: true
     },
     comment: {
-        type: Array,
+        type: String,
         required: true,
     }
 }, {
