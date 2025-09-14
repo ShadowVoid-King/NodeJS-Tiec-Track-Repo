@@ -3,6 +3,7 @@ const session = require('express-session');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const { connectDB } = require('./config/connDB');
+const { checkAuth } = require('./middleware/checkAuth');
 // Add Requires Route
 const authRouter = require('./router/authRouter');
 const studentRouter = require('./router/studentRouter');
@@ -25,7 +26,7 @@ app.use(session({
 
 // Routes
 app.use('/auth', authRouter)
-app.use('/students', studentRouter)
+app.use('/students', checkAuth, studentRouter)
 
 mongoose.connection.once('connected', () => {
     console.log('Connected to MongoDB');

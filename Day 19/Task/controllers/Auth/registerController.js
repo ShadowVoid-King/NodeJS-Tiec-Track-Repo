@@ -30,7 +30,8 @@ const registerController = async (req, res) => {
         await newUser.save();
 
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
+        req.session.token = token;
+        
         return res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
         console.error(error);

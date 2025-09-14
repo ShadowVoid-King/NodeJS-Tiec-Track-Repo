@@ -15,7 +15,6 @@ const checkAuth = (req, res, next) => {
         });
         
     }
-    // verify(getToken, process.env.JWT_SECRET);
 }
 
 
