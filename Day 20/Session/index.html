@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socket.IO Room Test</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h2>Join Room</h2>
+  <input id="roomInput" placeholder="Enter room..." />
+  <button onclick="joinRoom()">Join</button>
+  <p id="currentRoom">Not in any room</p>
+
+  <h2>Chat</h2>
+  <input id="msgInput" placeholder="Type message..." />
+  <button onclick="sendMsg()">Send</button>
+
+  <ul id="messages"></ul>
+
+  <script>
+    const socket = io();
+    let currentRoom = null;
+
+    function joinRoom() {
+      const room = document.getElementById("roomInput").value;
+      if (room) {
+        currentRoom = room;
+        socket.emit("joinRoom", room);
+        document.getElementById("currentRoom").textContent = "Current room: " + room;
+      }
+    }
+
+    function sendMsg() {
+      const msg = document.getElementById("msgInput").value;
+      if (msg && currentRoom) {
+        socket.emit("chat message", { room: currentRoom, text: msg });
+        document.getElementById("msgInput").value = "";
+      } else {
+        alert("Join a room first!");
+      }
+    }
+
+    socket.on("chat message", (msg) => {
+      const li = document.createElement("li");
+      li.textContent = msg;
+      document.getElementById("messages").appendChild(li);
+    });
+
+    socket.on("hello", (msg) => {
+      const li = document.createElement("li");
+      li.textContent = "[Hello Event] " + msg;
+      li.style.color = "blue";
+      document.getElementById("messages").appendChild(li);
+    });
+
+    socket.on("message", (msg) => {
+      const li = document.createElement("li");
+      li.textContent = "[System] " + msg;
+      li.style.fontStyle = "italic";
+      li.style.color = "gray";
+      document.getElementById("messages").appendChild(li);
+    });
+  </script>
+</body>
+</html>
