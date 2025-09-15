@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simple Private Chat</title>
+		<style>
+			body {
+				font-family: Arial, sans-serif;
+				display: flex;
+			}
+			#users {
+				width: 200px;
+				border-right: 1px solid #ccc;
+				padding: 10px;
+			}
+			#chat {
+				flex: 1;
+				padding: 10px;
+			}
+			#messages {
+				list-style: none;
+				padding: 0;
+				height: 300px;
+				overflow-y: scroll;
+				border: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="users">
+			<h3>Users</h3>
+			<ul id="userList"></ul>
+		</div>
+		<div id="chat">
+			<h3>Chat</h3>
+			<ul id="messages"></ul>
+			<form id="form">
+				<input id="input" autocomplete="off" /><button>Send</button>
+			</form>
+		</div>
+
+		<script src="/socket.io/socket.io.js"></script>
+		<script>
+			const socket = io();
+			let username = prompt("Enter your name:");
+			let currentChatUser = null;
+
+			socket.emit("set_username", username);
+
+			// Update user list
+			socket.on("user_list", (users) => {
+        
+				const userList = document.getElementById("userList");
+
+				userList.innerHTML = "";
+
+				users.forEach((u) => {
+					if (u !== username) {
+						const li = document.createElement("li");
+						li.textContent = u;
+						li.onclick = () => {
+							currentChatUser = u;
+							addMessage(`Now chatting with ${u}`);
+						};
+						userList.appendChild(li);
+					}
+				});
+			});
+
+			// Send message
+			document.getElementById("form").addEventListener("submit", (e) => {
+				e.preventDefault();
+				const input = document.getElementById("input");
+				if (input.value && currentChatUser) {
+					socket.emit("private_message", {
+						from: username,
+						to: currentChatUser,
+						message: input.value,
+					});
+					addMessage(`You -> ${currentChatUser}: ${input.value}`);
+					input.value = "";
+				}
+			});
+
+			// Receive private message
+			socket.on("private_message", ({ from, message }) => {
+				addMessage(`${from}: ${message}`);
+			});
+
+			// Errors
+			socket.on("error_message", (msg) => addMessage(msg));
+
+			function addMessage(msg) {
+				const li = document.createElement("li");
+				li.textContent = msg;
+				document.getElementById("messages").appendChild(li);
+			}
+		</script>
+	</body>
+</html>
