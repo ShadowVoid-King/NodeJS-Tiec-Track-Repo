@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="chat-shell">
+      <aside class="sidebar">
+        <input class="input" type="text" id="searchUser" placeholder="Search user by username" />
+        <button class="btn mt-8" id="searchBtn">Add Friend</button>
+        <h3 class="mt-8">Friends</h3>
+        <ul class="friends" id="friendsList"></ul>
+      </aside>
+
+      <section class="chat-panel">
+        <div class="chat-header">
+          <div>Hello, <strong id="user"></strong></div>
+          <button class="btn secondary" id="logout">Logout</button>
+        </div>
+        <div id="chatBox" class="chat-box"></div>
+        <div class="typing" id="typing"></div>
+        <div class="chat-input">
+          <input class="input" type="text" id="message" placeholder="Write your message" />
+          <button class="btn" id="sendBtn">Send</button>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/client.js"></script>
+</body>
+</html>

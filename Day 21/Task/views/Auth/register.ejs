@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Create account</h2>
+            <form id="registerForm">
+                <input class="input" type="text" id="firstName" placeholder="First Name" required>
+                <input class="input" type="text" id="lastName" placeholder="Last Name" required>
+                <input class="input" type="text" id="username" placeholder="username" required>
+                <input class="input" type="email" id="email" placeholder="Email" required>
+                <input class="input" type="password" id="password" placeholder="password" required>
+                <button class="btn" type="submit">Register</button>
+                <div class="links">
+                    <a href="/auth/login">I already have an account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
+</body>
+
+</html>

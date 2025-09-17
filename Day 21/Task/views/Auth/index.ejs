@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style> .links a { font-size: 14px; } </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input class="input" type="text" id="username" placeholder="username" required>
+                <input class="input" type="password" id="password" placeholder="password" required>
+                <button class="btn" type="submit">Login</button>
+                <div class="links">
+                    <a href="/auth/register">Create account</a>
+                    <a href="/auth/forgot-password">Forgot password?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            fetch('/auth/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+                .then(res => res.json())
+                .then((finalRes) => {
+                    if (finalRes.message === "login done") {
+                        localStorage.setItem("username", username);
+                        window.location.href = "/chat";
+                    }
+                    else {
+                        alert(finalRes.message);
+                    }
+                })
+                .catch((err) => {
+                    alert(err)
+                })
+
+
+        }); 
+    </script>
+</body>
+
+</html>
