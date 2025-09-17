@@ -8,6 +8,8 @@ const { connectDB } = require("./config/connDB");
 const session = require("express-session");
 const cors = require("cors");
 const { checkAuth } = require("./middleware/checkAuth");
+const { usersData } = require("./models/users");
+const { messagesData } = require("./models/messages");
 
 // Router
 const authRouter = require("./router/authRouter");
@@ -61,6 +63,20 @@ io.on("connection", (socket) => {
 			from: socket.username,
 			message,
 		});
+		// Persist to DB
+		(async () => {
+			try {
+				const [sender, receiver] = await Promise.all([
+					usersData.findOne({ username: socket.username }).select("_id"),
+					usersData.findOne({ username: to }).select("_id"),
+				]);
+				if (sender && receiver) {
+					await messagesData.create({ sender: sender._id, receiver: receiver._id, message });
+				}
+			} catch (e) {
+				console.error("Failed to persist message:", e);
+			}
+		})();
 	});
 
 	// Typing indicator relay
